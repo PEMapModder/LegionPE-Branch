@@ -1,0 +1,7 @@
+---
+# Localization config file for Legion PE
+server-id: 0
+ip: pe.legionpvp.eu
+port: 19132 # change this value!!!
+server-class: Undefined # Hub, KitPvP, Parkour, Spleef, Infected
+...
