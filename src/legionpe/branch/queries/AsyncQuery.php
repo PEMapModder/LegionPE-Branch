@@ -5,13 +5,14 @@ namespace legionpe\branch\queries;
 use legionpe\branch\BranchPlugin;
 use pocketmine\scheduler\AsyncTask;
 
-abstract class BaseQuery extends AsyncTask{
+abstract class AsyncQuery extends AsyncTask{
 	const KEY_MYSQL = "legionpe.branch.query.mysql";
 	const TYPE_RAW = 0;
 	const TYPE_ASSOC = 1;
 	const TYPE_ALL = 2;
 	const COL_STRING = 0;
 	const COL_INT = 1;
+	const COL_UNIXTIME = 1;
 	const COL_FLOAT = 2;
 //	const COL_BOOL = 3;
 //	const COL_TIMESTAMP = 4;
@@ -47,6 +48,7 @@ abstract class BaseQuery extends AsyncTask{
 				$result->close();
 				$this->setResult(["success" => true, "query" => $query, "result" => $row, "resulttype" => self::TYPE_ALL]);
 			}
+			return;
 		}
 		$this->setResult(["success" => true, "query" => $query, "resulttype" => self::TYPE_RAW]);
 	}
@@ -84,7 +86,7 @@ abstract class BaseQuery extends AsyncTask{
 	public function getExpectedColumns(){
 		return [];
 	}
-	public function esc(\mysqli $mysql, $str){
-		return is_string($str) ? "'{$mysql->escape_string($str)}'" : (string) $str;
+	public function esc($str){
+		return is_string($str) ? "'{$this->getConn()->escape_string($str)}'" : (string) $str;
 	}
 }
