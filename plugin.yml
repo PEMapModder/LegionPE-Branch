@@ -1,0 +1,5 @@
+name: BranchPlugin
+author: PEMapModder
+api: [1.12.0]
+version: 1.0
+main: legionpe\branch\branchplugin
