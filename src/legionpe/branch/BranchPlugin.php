@@ -10,11 +10,6 @@ use pocketmine\plugin\PluginBase;
 use pocketmine\scheduler\AsyncTask;
 
 abstract class BranchPlugin extends PluginBase{
-	/**
-	 * @param Player $player
-	 * @return Session
-	 */
-	protected abstract function newSession(Player $player);
 	/** @var string */
 	private static $impl;
 	/**
@@ -139,6 +134,13 @@ abstract class BranchPlugin extends PluginBase{
 	 */
 	public function getSessions(){
 		return $this->sessions;
+	}
+	/**
+	 * @param string|Player $player
+	 * @return Session|null
+	 */
+	public function getSession($player){
+		return $this->getSessions()->get($player);
 	}
 	/**
 	 * @param Player $player The new player

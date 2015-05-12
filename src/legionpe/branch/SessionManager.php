@@ -22,7 +22,7 @@ class SessionManager{
 		}
 	}
 	/**
-	 * @param $player
+	 * @param string|Player $player
 	 * @return Session|null
 	 */
 	public function get($player){

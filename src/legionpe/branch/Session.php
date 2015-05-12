@@ -5,17 +5,18 @@ namespace legionpe\branch;
 use pocketmine\Player;
 
 abstract class Session{
-	const STATUS_OFFLINE = 0;
-	const STATUS_FETCHING_DATA = 1;
-	const STATUS_REGISTERING = 2;
-	const STATUS_TRANSFER = 3;
+	const STATUS_LOGGING = 2;
+	const STATUS_NORMAL = 3;
 	/** @var Player */
 	private $player;
 	/** @var int */
 	private $uid;
-	public function __construct(Player $player, $uid){
+	protected $status = self::STATUS_LOGGING;
+	private $mysqlBasicData = [];
+	public function __construct(Player $player, $uid, $basicData){
 		$this->player = $player;
 		$this->uid = $uid;
+		$this->mysqlBasicData = $basicData;
 	}
 	/**
 	 * @return Player
@@ -28,6 +29,9 @@ abstract class Session{
 	 */
 	public function getUid(){
 		return $this->uid;
+	}
+	public function isLoggedIn(){
+		return $this->status === self::STATUS_NORMAL;
 	}
 	public function finalize(){
 		// TODO: Save data.
